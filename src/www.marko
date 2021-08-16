@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang=input.lang multipple>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui"/>
+    <title>${input.title}</title>
+  </head>
+  <body>
+    <if( process.env.NODE_ENV === 'production' )><script src=input.Assets.client.js defer crossorigin></script></if>
+    <else><script src=input.Assets.client.js defer></script></else>
+  </body>
+</html>
