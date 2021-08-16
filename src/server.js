@@ -1,7 +1,7 @@
 
 import express from 'express';
 import markoMiddleware from '@marko/express';
-import Entrypoint from './www.marko';
+import Entrypoint from './views/www.marko';
 
 const Assets = require( process.env.RAZZLE_ASSETS_MANIFEST )
 
@@ -12,7 +12,7 @@ app
 .use( markoMiddleware() ) // Enable res.marko
 .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
 
-.get('/', (req, res) => {
+.get('/*', (req, res) => {
 
   const scope = {
     title: 'Setup Note App',
