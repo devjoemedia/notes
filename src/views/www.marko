@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang=input.lang multipple>
+<!DOCTYPE html>
+<html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -7,7 +7,11 @@
     <title>${input.title}</title>
   </head>
   <body>
-    <if( process.env.NODE_ENV === 'production' )><script src=input.Assets.client.js defer crossorigin></script></if>
-    <else><script src=input.Assets.client.js defer></script></else>
+    <if( process.env.NODE_ENV === 'production' )><script src=input.Assets.client.js[0] defer crossorigin></script></if>
+    <else>
+      <for|src| of=input.Assets.client.js>
+        <script src=src defer></script>
+      </for>
+    </else>
   </body>
 </html>
