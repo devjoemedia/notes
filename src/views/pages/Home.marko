@@ -1,4 +1,44 @@
-<div>
-  <Header/>
-  <h1>Home</h1>
+import axios from 'axios';
+import Route from '../App.marko';
+
+class {
+  onCreate(input) {
+    this.state = {
+      notes: []
+    }
+  } 
+  onMount(){
+    console.log("Page mounted")
+  }
+}
+
+<context|{ notes }| from=Route> 
+<div class="container">
+    My Notes: ${notes}.<br>
+    
+    <Header/>
+  <div.formContainer>
+    <h1>Notes</h1>
+    <div.notes>
+      <if(state.notes.length > 0)>
+      <for|note| of=state.notes>
+      <div class="card">
+        <h1>${note.title}</h1>
+        <p>${note.body.length > 200 ? note.body.substring(0, 200)+ " ..." : note.body}</p>
+        <div class="actions">
+          <a href=`/notes/${note.id}` class="btn">Read more</a>
+          <div>
+            <button class="delete" on-click('deleteNote')>X</button>
+            <a href=`/notes/${note.id}/edit` class="edit">Edit</a>
+              </div>   
+            </div>
+          </div>
+        </for>
+      </if>
+      <else>
+        <h1>No Notes Found</h1>
+      </else>
+    </div> 
+  </div>
 </div>
+</context>

@@ -1,0 +1,46 @@
+class {
+  onCreate() {
+    this.state = {
+      title: "",
+      body: "",
+    } 
+  }
+  setTitle(e) {
+    this.state.title = e.target.value;
+  }
+  setBody(e) {
+    this.state.body = e.target.value;
+  }
+
+  handleAdd() {
+    fetch('/notes', { 
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: {title: this.state.title, body: this.state.body},
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data) {
+          this.state.body = "";
+          this.state.title = "";
+        }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  }
+}
+
+<div.container>
+  <Header />
+  <div.formContainer>
+    <h1>Add Note</h1>
+    <div.form>
+      <input placeholder="enter title" on-change("setTitle") type="text" value=`note Title`/>
+      <textarea on-change("setBody") name="name" rows="8" cols="40" placeholder="enter body">Note Body</textarea>
+      <button on-click("handleAdd") class="btn">Add note</button>
+    </div> 
+  </div>
+</div>

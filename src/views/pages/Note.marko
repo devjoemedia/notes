@@ -1,4 +1,32 @@
-<div>
-  <Header/>
-  <h1>Note</h1>
+class {
+    deleteNote(id){
+      console.log("test")
+        fetch(`/notes/${id}`, { 
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            })
+            .then(response => response.json())
+            .then(data => {
+            console.log(data)
+            })
+            .catch((error) => {
+            console.error('Error:', error);
+        });
+    } 
+}
+
+<div.container title="Note Title">
+    <Header />
+    <div.formContainer>
+        <div class="note-body">
+            <div class="actions">
+            <button class="delete" on-click('deleteNote')>X</button>
+            <a class="edit" href=`/notes/1/edit`>Edit</a>
+            </div>
+            <h1>Note Title</h1>
+            <p>Note Body</p>
+        </div>
+    </div>
 </div>

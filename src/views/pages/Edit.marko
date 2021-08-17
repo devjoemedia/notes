@@ -1,0 +1,45 @@
+class {
+  onCreate(input) {
+    this.state = {
+        id: input.id,
+        title: input.title,
+        body: input.body,
+    } 
+  }
+  setTitle(e) {
+    this.state.title = e.target.value;
+  }
+  setBody(e) {
+    this.state.body = e.target.value;
+  }
+
+  handleUpdate(id) {
+    fetch(`/notes/${this.state.id}`, { 
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: {title: this.state.title, body: this.state.body},
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        this.state.body = "";
+        this.state.title = "";
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  }
+}
+<div.container>
+  <Header />
+  <div.formContainer>
+    <h1>Edit Note</h1>
+    <div.form>
+        <input on-change("setTitle") type="text" value=`Note Title`/>
+        <textarea on-change("setBody") name="name" rows="8" cols="40">Note Body</textarea>
+        <button on-click('handleUpdate') class="btn">update note</button>
+    </div>
+  </div>
+</div>
