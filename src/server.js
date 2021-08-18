@@ -12,7 +12,7 @@ const app = express();
 
 // Connecting to server
 mongoose.connect("mongodb+srv://joseph:test1234@cluster0.qqbea.mongodb.net/notebook?retryWrites=true&w=majority",{ useNewUrlParser: true,useUnifiedTopology: true }).then(res=> console.log("connection success")).catch(err => console.log(err.message))
- 
+  
 app
 .disable('x-powered-by')
 .use( markoMiddleware() ) // Enable res.marko
@@ -20,6 +20,19 @@ app
 app.use(express.json())
 
 
+// Get  Note By Tag
+app.get('/api/notes/:tag', async(req, res) => {
+  try {
+    const notes = await Note.find({tag: req.params.tag});
+    
+    res.status(200).json({
+      message: "Success",
+      notes
+    })
+  } catch (err) {
+    console.log(err.message);
+  }
+}); 
 // Get All Notes
 app.get('/api/notes', async(req, res) => {
   try {

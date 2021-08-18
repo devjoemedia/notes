@@ -53,7 +53,7 @@ body{
       background-color: #fff;
       border-radius: 10px;
       width: 43%;
-      min-height: 200px; 
+      max-height: 330px; 
     }
 
     .notes {
@@ -114,3 +114,21 @@ body{
     font-weight: bold;
     border-radius: 50px;
   }
+
+  .select-toggle {
+        padding: 10px 20;
+    }
+    ul {
+        padding: 0;
+        margin: 0;
+    }
+    .country {
+        width: 100%;
+        padding: 10px 20px;
+        margin: 20px 0;
+        /* border: 1px solid #333; */
+    }
+    .option {
+        padding: 10px; 
+        list-style: none
+    }

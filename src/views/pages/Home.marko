@@ -4,13 +4,18 @@ import Route from '../App.marko';
 class {
   onCreate(input) {
     this.state = {
-      notes: []
+      notes: [],
+      nNotes: [],
+      open: false,
+      options: ["all","business","sports","Entertainment","politics"],
+      selected: ''
     }
   } 
   onMount(){
     axios.get("/api/notes")
       .then(data => {
         this.state.notes = data.data.notes
+        this.state.nNotes = data.data.notes
       })
       .catch(err => console.log(err.message))
   }
@@ -24,17 +29,47 @@ class {
       })
       .catch(err => console.log(err.message))
   }
+  handleShow() {
+    this.state.open = !this.state.open;
+  }
+
+  handleSelect(e) {
+    this.state.selected = e.target.textContent;
+    this.handleShow(); 
+    let newNotes = this.state.notes.filter(note=> note.tag === this.state.selected)
+    
+    this.state.nNotes = newNotes;
+    if(this.state.selected === 'all') {
+      this.state.nNotes = this.state.notes;
+    }
+    if(this.state.selected !== '') {
+        this.emit("selected",  this.state.selected)
+    }
+  }
 }
 
 <div class="container">    
   <Header/>
   <div.formContainer>
-    <h1>Notes</h1>
+    <div.notes__head>
+      <h1>Notes</h1>
+      <div class="country" name="country">
+        <span class="select-toggle btn" on-click("handleShow")>Filter by tag: ${state.selected}</span>
+        <if(state.open)>
+          <ul>
+            <for|option| of=state.options>
+              <li class="option" on-click('handleSelect')  value=`${option}`>${option}</li>
+            </for>
+          </ul>
+        </if>
+      </div>
+    </div>
     <div.notes>
-      <if(state.notes.length > 0)>
-      <for|note| of=state.notes>
+      <if(state.nNotes.length > 0)>
+      <for|note| of=state.nNotes>
       <div class="card">
         <h1>${note.title}</h1>
+        <p>Tags: ${note.tag}</p>
         <p>${note.body.length > 200 ? note.body.substring(0, 200)+ " ..." : note.body}</p>
         <div class="actions">
           <route-link href=`/notes/${note._id}` class="btn">Read more</route-link>

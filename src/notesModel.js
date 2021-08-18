@@ -5,6 +5,10 @@ const noteSchema= new mongoose.Schema({
         type: String,
         require: true
     },
+    tag: {
+        type: String,
+        require: true
+    },
     body: {
         type: String,
         require: true
