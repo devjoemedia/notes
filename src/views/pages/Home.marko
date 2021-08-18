@@ -8,15 +8,26 @@ class {
     }
   } 
   onMount(){
-    console.log("Page mounted")
+    axios.get("/api/notes")
+      .then(data => {
+        this.state.notes = data.data.notes
+      })
+      .catch(err => console.log(err.message))
+  }
+
+  handleDelete(id,e) {
+    axios.delete(`/api/notes/${id}`)
+      .then(data => {
+         if(data) {
+          window.location = '/'
+        }
+      })
+      .catch(err => console.log(err.message))
   }
 }
 
-<context|{ notes }| from=Route> 
-<div class="container">
-    My Notes: ${notes}.<br>
-    
-    <Header/>
+<div class="container">    
+  <Header/>
   <div.formContainer>
     <h1>Notes</h1>
     <div.notes>
@@ -26,10 +37,10 @@ class {
         <h1>${note.title}</h1>
         <p>${note.body.length > 200 ? note.body.substring(0, 200)+ " ..." : note.body}</p>
         <div class="actions">
-          <a href=`/notes/${note.id}` class="btn">Read more</a>
+          <route-link href=`/notes/${note._id}` class="btn">Read more</route-link>
           <div>
-            <button class="delete" on-click('deleteNote')>X</button>
-            <a href=`/notes/${note.id}/edit` class="edit">Edit</a>
+            <button class="delete" on-click("handleDelete",note._id)>X</button>
+            <route-link href=`/notes/${note._id}/edit` class="edit">Edit</route-link>
               </div>   
             </div>
           </div>
@@ -41,4 +52,3 @@ class {
     </div> 
   </div>
 </div>
-</context>

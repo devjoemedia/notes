@@ -7,9 +7,7 @@
     <title>${input.title}</title>
   </head>
   <body>
-    <context notes=input.notes>
-      <div#app></div>
-    </context>
+    <div#app></div>
     <if( process.env.NODE_ENV === 'production' )><script src=input.Assets.client.js[0] defer crossorigin></script></if>
     <else>
       <for|src| of=input.Assets.client.js>

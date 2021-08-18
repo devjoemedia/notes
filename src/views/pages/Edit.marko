@@ -1,11 +1,22 @@
+import axios from 'axios'
 class {
   onCreate(input) {
     this.state = {
-        id: input.id,
-        title: input.title,
-        body: input.body,
+      id: null,
+      title: "",
+      body: ""
     } 
   }
+  onMount() {
+    let id = window.location.pathname.split('/')[2] ;
+      axios.get(`/api/notes/${id}`)
+        .then(data => {
+            this.state.id = data.data.note._id
+            this.state.title = data.data.note.title
+            this.state.body = data.data.note.body
+        })
+        .catch(err => console.log(err.message))
+  } 
   setTitle(e) {
     this.state.title = e.target.value;
   }
@@ -13,22 +24,21 @@ class {
     this.state.body = e.target.value;
   }
 
-  handleUpdate(id) {
-    fetch(`/notes/${this.state.id}`, { 
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: {title: this.state.title, body: this.state.body},
-    })
-    .then(response => response.json())
+
+  handleUpdate() {
+    let id = window.location.pathname.split('/')[2] ;
+    let data = {
+        title: this.state.title,
+        body: this.state.body
+      }
+   axios.patch(`/api/notes/${id}`,data)
     .then(data => {
-        console.log(data)
-        this.state.body = "";
-        this.state.title = "";
+      if(data) {
+        window.location = '/'
+      }
     })
     .catch((error) => {
-      console.error('Error:', error);
+      console.error('Error:', error.message);
     });
   }
 }
@@ -37,8 +47,8 @@ class {
   <div.formContainer>
     <h1>Edit Note</h1>
     <div.form>
-        <input on-change("setTitle") type="text" value=`Note Title`/>
-        <textarea on-change("setBody") name="name" rows="8" cols="40">Note Body</textarea>
+        <input on-change("setTitle") type="text" value=`${state?.title}`/>
+        <textarea on-change("setBody") name="name" rows="8" cols="40">${state?.body}</textarea>
         <button on-click('handleUpdate') class="btn">update note</button>
     </div>
   </div>

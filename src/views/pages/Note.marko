@@ -1,19 +1,26 @@
+import axios from "axios";
 class {
-    deleteNote(id){
-      console.log("test")
-        fetch(`/notes/${id}`, { 
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            })
-            .then(response => response.json())
+   onCreate() {
+    this.state={
+        note : null
+    }
+  } 
+    onMount() {
+        let id = window.location.pathname.split('/')[2] ;
+         axios.get(`/api/notes/${id}`)
             .then(data => {
-            console.log(data)
+                this.state.note = data.data.note
             })
-            .catch((error) => {
-            console.error('Error:', error);
-        });
+            .catch(err => console.log(err.message))
+    }    
+     handleDelete(id,e) {
+        axios.delete(`/api/notes/${id}`)
+        .then(data => {
+            if(data) {
+            window.location = '/'
+            }
+        })
+        .catch(err => console.log(err.message))
     } 
 }
 
@@ -22,11 +29,11 @@ class {
     <div.formContainer>
         <div class="note-body">
             <div class="actions">
-            <button class="delete" on-click('deleteNote')>X</button>
-            <a class="edit" href=`/notes/1/edit`>Edit</a>
+            <button class="delete" on-click('handleDelete', state.note?._id)>X</button>
+            <route-link href=`/notes/${state.note?._id}/edit` class="edit">Edit</route-link>
             </div>
-            <h1>Note Title</h1>
-            <p>Note Body</p>
+            <h1>${state.note?.title}</h1>
+            <p>${state.note?.body}</p>
         </div>
     </div>
 </div>
