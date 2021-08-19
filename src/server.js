@@ -11,7 +11,7 @@ const app = express();
 
 
 // Connecting to server
-mongoose.connect("mongodb+srv://joseph:test1234@cluster0.qqbea.mongodb.net/notebook?retryWrites=true&w=majority",{ useNewUrlParser: true,useUnifiedTopology: true }).then(res=> console.log("connection success")).catch(err => console.log(err.message))
+mongoose.connect("mongodb+srv://joseph:test1234@cluster0.qqbea.mongodb.net/notebook?retryWrites=true&w=majority",{ useNewUrlParser: true,useUnifiedTopology: true ,useFindAndModify: true }).then(res=> console.log("connection success")).catch(err => console.log(err.message))
   
 app
 .disable('x-powered-by')
