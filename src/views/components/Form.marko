@@ -13,9 +13,13 @@ class {
 
   //Gets the injected input data from Edit page when it's ready
   onInput(input) {
-    if(input.title !== "" && input.body !== "" & input.tag !== "") {
+    if( input.title !== undefined ) {
       this.state.title = input.title
+    }
+    if(input.body !== undefined) {
       this.state.body = input.body
+    }
+    if(input.tag !== undefined) {
       this.state.tag = input.tag
     }
   }
