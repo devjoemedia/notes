@@ -1,40 +1,40 @@
 import axios from 'axios'
 class {
-  onCreate(input) {
+  onCreate() {
     this.state = {
-      id: null,
       title: "",
-      body: ""
+      body: "",
+      tag: ""
     } 
   }
-  onMount() {
-    let id = window.location.pathname.split('/')[2] ;
-      axios.get(`/api/notes/${id}`)
-        .then(data => {
-            this.state.id = data.data.note._id
-            this.state.title = data.data.note.title
-            this.state.body = data.data.note.body
-        })
-        .catch(err => console.log(err.message))
-  } 
+  setTag(e) {
+    this.state.tag = e.tag
+  }
+
   setTitle(e) {
-    this.state.title = e.target.value;
+    this.state.title = e.title;
   }
   setBody(e) {
-    this.state.body = e.target.value;
+    this.state.body = e.body;
   }
-
+ 
 
   handleUpdate() {
+     if(this.state.title === "" || this.state.body === "" || this.state.tag === "") {
+      alert("please fill all fields and select a Tag for your note");
+      return
+    }
     let id = window.location.pathname.split('/')[2] ;
     let data = {
+        tag: this.state.tag,
         title: this.state.title,
         body: this.state.body
       }
    axios.patch(`/api/notes/${id}`,data)
     .then(data => {
-      if(data) {
-        window.location = '/'
+      if(data.data.message === "Success") {
+        alert("Note updated Please visit / to view note")
+
       }
     })
     .catch((error) => {
@@ -42,14 +42,12 @@ class {
     });
   }
 }
+
 <div.container>
   <Header />
   <div.formContainer>
     <h1>Edit Note</h1>
-    <div.form>
-        <input on-change("setTitle") type="text" value=`${state?.title}`/>
-        <textarea on-change("setBody") name="name" rows="8" cols="40">${state?.body}</textarea>
-        <button on-click('handleUpdate') class="btn">update note</button>
-    </div>
+    <Form on-set-title("setTitle") on-set-body("setBody") on-set-tag("setTag")/>
+    <button on-click("handleUpdate") class="btn">Update note</button>
   </div>
 </div>

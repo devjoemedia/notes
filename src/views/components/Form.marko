@@ -1,0 +1,86 @@
+import axios from 'axios'
+class {
+  onCreate() {
+    this.state=  {
+      title: "",
+      body: "",
+      tag: "",
+      open: false,
+      options: ["business","sports","Entertainment","politics"]
+    }
+  }
+  onMount() {
+    let id = window.location.pathname.split('/')[2] ;
+    if(typeof(id) !== "undefined") {
+      axios.get(`/api/notes/${id}`)
+      .then(data => {
+        if(data.data.note) {
+          this.state.title = data.data.note.title
+          this.state.body = data.data.note.body
+          this.state.tag = data.data.note.tag
+
+          this.emit("set-title", { title: data.data.note.title });
+          this.emit("set-body", { body: data.data.note.body });
+          this.emit("set-tag",  {tag: data.data.note.tag})
+
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error.message);
+      });
+    }
+  }
+  setTitle(event) {
+    let id = window.location.pathname.split('/')[2] ;
+    this.state.title = event.target.value
+
+    if(this.state.title !== ""){
+      this.emit("set-title", { title:  this.state.title });
+    }
+  }
+  setBody(event) {
+    let id = window.location.pathname.split('/')[2] ;
+    this.state.body = event.target.value
+
+    if(this.state.body !== ""){
+      this.emit("set-body", { body:  this.state.body });
+    }
+  }
+  setTag(e) {
+    this.handleShow(); 
+    this.state.tag = e.target.textContent
+
+    if(this.state.tag !== "") {
+      this.emit("set-tag",  {tag: e.target.textContent})
+    }
+  }
+
+  handleShow() {
+    this.state.open = !this.state.open;
+  }
+    
+    
+}
+
+
+<div.form>
+    
+    <div.inputContainer>
+      <label>Tags</label>
+      <div class="tags" name="tags">
+        <span class="select-toggle btn" on-click("handleShow")>Select a Tag: ${state.tag}</span>
+        <if(state.open)>
+          <ul class="options">
+            <for|option| of=state.options>
+              <li class="option" on-click('setTag')>${option}</li>
+            </for>
+          </ul>
+        </if>
+      </div>
+    </div>
+    <div.inputContainer>
+        <label>Title</label>
+        <input placeholder="enter title" on-change("setTitle") type="text" value=`${state.title}`/>
+    </div>
+  <textarea on-change("setBody") name="name" rows="8" cols="40" placeholder="enter body">${state.body}</textarea>
+</div>

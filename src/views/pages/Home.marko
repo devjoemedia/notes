@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Route from '../App.marko';
 
 class {
   onCreate(input) {
@@ -20,14 +19,10 @@ class {
       .catch(err => console.log(err.message))
   }
 
-  handleDelete(id,e) {
-    axios.delete(`/api/notes/${id}`)
-      .then(data => {
-         if(data) {
-          window.location = '/'
-        }
-      })
-      .catch(err => console.log(err.message))
+  handleDelete(e) {
+    let newNotes = this.state.notes.filter(note=> note._id !== e.id)
+
+    this.state.nNotes = newNotes;
   }
   handleShow() {
     this.state.open = !this.state.open;
@@ -39,11 +34,9 @@ class {
     let newNotes = this.state.notes.filter(note=> note.tag === this.state.selected)
     
     this.state.nNotes = newNotes;
+
     if(this.state.selected === 'all') {
       this.state.nNotes = this.state.notes;
-    }
-    if(this.state.selected !== '') {
-        this.emit("selected",  this.state.selected)
     }
   }
 }
@@ -53,10 +46,10 @@ class {
   <div.formContainer>
     <div.notes__head>
       <h1>Notes</h1>
-      <div class="country" name="country">
+      <div class="tags" name="tags">
         <span class="select-toggle btn" on-click("handleShow")>Filter by tag: ${state.selected}</span>
         <if(state.open)>
-          <ul>
+          <ul class="options">
             <for|option| of=state.options>
               <li class="option" on-click('handleSelect')  value=`${option}`>${option}</li>
             </for>
@@ -67,19 +60,8 @@ class {
     <div.notes>
       <if(state.nNotes.length > 0)>
       <for|note| of=state.nNotes>
-      <div class="card">
-        <h1>${note.title}</h1>
-        <p>Tags: ${note.tag}</p>
-        <p>${note.body.length > 200 ? note.body.substring(0, 200)+ " ..." : note.body}</p>
-        <div class="actions">
-          <route-link href=`/notes/${note._id}` class="btn">Read more</route-link>
-          <div>
-            <button class="delete" on-click("handleDelete",note._id)>X</button>
-            <route-link href=`/notes/${note._id}/edit` class="edit">Edit</route-link>
-              </div>   
-            </div>
-          </div>
-        </for>
+        <NoteList on-delete-note("handleDelete") title=`${note.title}` body=`${note.body}` tag=`${note.tag}` id=`${note._id}` />
+      </for>
       </if>
       <else>
         <h1>No Notes Found</h1>

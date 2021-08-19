@@ -3,132 +3,144 @@
   box-sizing: border-box;
 }
 body{
-      background-color: #f1f1f1;
-    }
-    a {
-      text-decoration: none;
-      color: #333;
-    }
-    .edit {
-      color: blue;
-      margin-left: 15px;
-    }
-    .delete { 
-      border: none;
-      color: red;
-    }
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 60px;
-      background-color: #333;
-      color: #fff;
-    }
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      margin-left: 20px;
-    }
-    nav ul {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-right: 20px;
-    }
+  background-color: #f1f1f1;
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+.edit {
+  color: blue;
+  margin-left: 15px;
+}
+.delete { 
+  border: none;
+  color: red;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  background-color: #333;
+  color: #fff;
+}
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 20px;
+}
+nav ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 20px;
+}
 
-    nav ul li {
-      list-style: none;
-      font-size: 18px;
-    }
-    .actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .card {
-      margin-bottom: 15px;
-      padding: 20px;
-      box-shadow: 0 0px 5px 0px rgba(0,0,0,0.3);
-      background-color: #fff;
-      border-radius: 10px;
-      width: 43%;
-      max-height: 330px; 
-    }
+nav ul li {
+  list-style: none;
+  font-size: 18px;
+}
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card {
+  margin-bottom: 15px;
+  padding: 20px;
+  box-shadow: 0 0px 5px 0px rgba(0,0,0,0.3);
+  background-color: #fff;
+  border-radius: 10px;
+  width: 43%;
+  max-height: 330px; 
+}
 
-    .notes {
-      min-height: 80vh;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-    .container {
-    width: 800px;
-    margin: 0 auto;
-  }
-  .formContainer {
-    margin:0 auto;
-    background: #fff;
-    padding: 20px 20px 50px 20px;
-  }
-  form {
-    width: 250px;
-    margin: auto;
-  }
-   input {
+.notes {
+  min-height: 80vh;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.container {
+width: 800px;
+margin: 0 auto;
+}
+.formContainer {
+margin:0 auto;
+background: #fff;
+padding: 20px 20px 50px 20px;
+}
+form {
+width: 250px;
+margin: auto;
+}
+input {
+width: 100%;
+border: none;
+outline: none;
+border-bottom: 1px solid #ccc;
+padding: 10px 20px;
+margin: 10px 0;
+
+}
+.title {
+  text-align: center;
+}
+.btn {
+  text-align: center;
+  padding: 12px 20px;
+  outline: none;
+  border: none;
+  color: #fff;
+  background: #333;
+  cursor: pointer;
+  margin-top: 20px;
+}
+textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 20px;
+  resize: none;
+}
+
+.create-note {
+  padding: 8px 22px;
+  background-color: #fff;
+  color: #333;
+  font-weight: bold;
+  border-radius: 50px;
+}
+
+.select-toggle {
+  padding: 10px 20;
+  display: block;
+  width: 100%;
+  background: #333;
+  text-align: left;
+}
+ul {
+  padding: 0;
+  margin: 0;
+}
+.tags {
     width: 100%;
-    border: none;
-    outline: none;
-    border-bottom: 1px solid #ccc;
-    padding: 10px 20px;
+    padding: 10px 0px;
     margin: 10px 0;
-    
+    position: relative;
   }
-  .title {
-    text-align: center;
-  }
-  .btn {
-    text-align: center;
-    padding: 12px 20px;
-    outline: none;
-    border: none;
-    color: #fff;
-    background: #333;
-    cursor: pointer;
-    margin-top: 20px;
-  }
-  textarea {
-    width: 100%;
-    border: none;
-    outline: none;
-    border-bottom: 1px solid #ccc;
-    padding: 20px;
-    margin-top: 20px;
-    resize: none;
-  }
-  
-  .create-note {
-    padding: 8px 22px;
-    background-color: #fff;
-    color: #333;
-    font-weight: bold;
-    border-radius: 50px;
-  }
-
-  .select-toggle {
-        padding: 10px 20;
-    }
-    ul {
-        padding: 0;
-        margin: 0;
-    }
-    .country {
-        width: 100%;
-        padding: 10px 20px;
-        margin: 20px 0;
-        /* border: 1px solid #333; */
-    }
-    .option {
-        padding: 10px; 
-        list-style: none
-    }
+  .options {
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  width: 100%;
+  padding: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.option {
+    padding: 10px; 
+    list-style: none
+}

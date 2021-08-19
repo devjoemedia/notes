@@ -20,19 +20,7 @@ app
 app.use(express.json())
 
 
-// Get  Note By Tag
-app.get('/api/notes/:tag', async(req, res) => {
-  try {
-    const notes = await Note.find({tag: req.params.tag});
-    
-    res.status(200).json({
-      message: "Success",
-      notes
-    })
-  } catch (err) {
-    console.log(err.message);
-  }
-}); 
+
 // Get All Notes
 app.get('/api/notes', async(req, res) => {
   try {

@@ -3,30 +3,38 @@ import axios from 'axios'
 class {
   onCreate() {
     this.state = {
+      tag: "",
       title: "",
       body: "",
     } 
   }
+  setTag(e) {
+    this.state.tag = e.tag
+  }
+
   setTitle(e) {
-    this.state.title = e.target.value;
+    this.state.title = e.title;
   }
   setBody(e) {
-    this.state.body = e.target.value;
+    this.state.body = e.body;
   }
 
   handleAdd() {
-    if(this.state.title === "" || this.state.body === "") {
-      alert("please fill all fields");
+    if(this.state.title === "" || this.state.body === "" || this.state.tag === "") {
+      alert("please fill all fields and select a Tag for your note");
       return
     }
+
     let data = {
-        title: this.state.title,
-        body: this.state.body
-      }
+      tag: this.state.tag,
+      title: this.state.title,
+      body: this.state.body
+    }
+
    axios.post('/api/notes',data)
     .then(data => {
-      if(data) {
-        window.location = '/'
+      if(data.data.message === "Success") {
+        alert("Note Created Please visit / to view note")
       }
     })
     .catch((error) => {
@@ -39,10 +47,7 @@ class {
   <Header />
   <div.formContainer>
     <h1>Add Note</h1>
-    <div.form>
-      <input placeholder="enter title" on-change("setTitle") type="text" value=`${state.title}`/>
-      <textarea on-change("setBody") name="name" rows="8" cols="40" placeholder="enter body">${state.body}</textarea>
-      <button on-click("handleAdd") class="btn">Add note</button>
-    </div> 
+    <Form on-set-title("setTitle") on-set-body("setBody") on-set-tag("setTag")/>
+    <button on-click("handleAdd") class="btn">Add note</button>
   </div>
 </div>
