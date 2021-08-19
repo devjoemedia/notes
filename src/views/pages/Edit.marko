@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 class {
   onCreate() {
     this.state = {
@@ -7,47 +8,46 @@ class {
       tag: ""
     } 
   }
-  setTag(e) {
-    this.state.tag = e.tag
-  }
 
-  setTitle(e) {
-    this.state.title = e.title;
-  }
-  setBody(e) {
-    this.state.body = e.body;
-  }
- 
-
-  handleUpdate() {
-     if(this.state.title === "" || this.state.body === "" || this.state.tag === "") {
-      alert("please fill all fields and select a Tag for your note");
-      return
+  //Get note info when the component first loads and saves it to state to be injected onto the form
+  onMount() {
+    let id =  this.input.params.id;
+    if(id) {
+      axios.get(`/api/notes/${id}`)
+      .then(data => {
+        if(data.data.message === "Success") {
+          this.state.title = data.data.note.title
+          this.state.body = data.data.note.body
+          this.state.tag = data.data.note.tag
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error.message);
+      });
     }
-    let id = window.location.pathname.split('/')[2] ;
-    let data = {
-        tag: this.state.tag,
-        title: this.state.title,
-        body: this.state.body
-      }
-   axios.patch(`/api/notes/${id}`,data)
+  }
+
+  //patch request for updating Note
+  handleSubmit(data) {
+    let id = this.input.params.id;
+
+    axios.patch(`/api/notes/${id}`,data)
     .then(data => {
       if(data.data.message === "Success") {
         alert("Note updated Please visit / to view note")
-
       }
     })
     .catch((error) => {
       console.error('Error:', error.message);
     });
   }
+
 }
 
 <div.container>
   <Header />
-  <div.formContainer>
+  <div.form__inner>
     <h1>Edit Note</h1>
-    <Form on-set-title("setTitle") on-set-body("setBody") on-set-tag("setTag")/>
-    <button on-click("handleUpdate") class="btn">Update note</button>
+    <Form title=`${state.title}` body=`${state.body}` tag=`${state.tag}` on-set-submit("handleSubmit")/>
   </div>
 </div>

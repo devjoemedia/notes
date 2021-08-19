@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 class {
   onCreate() {
     this.state=  {
@@ -9,78 +10,81 @@ class {
       options: ["business","sports","Entertainment","politics"]
     }
   }
-  onMount() {
-    let id = window.location.pathname.split('/')[2] ;
-    if(typeof(id) !== "undefined") {
-      axios.get(`/api/notes/${id}`)
-      .then(data => {
-        if(data.data.note) {
-          this.state.title = data.data.note.title
-          this.state.body = data.data.note.body
-          this.state.tag = data.data.note.tag
 
-          this.emit("set-title", { title: data.data.note.title });
-          this.emit("set-body", { body: data.data.note.body });
-          this.emit("set-tag",  {tag: data.data.note.tag})
-
-        }
-      })
-      .catch((error) => {
-        console.error('Error:', error.message);
-      });
+  //Gets the injected input data from Edit page when it's ready
+  onInput(input) {
+    if(input.title !== "" && input.body !== "" & input.tag !== "") {
+      this.state.title = input.title
+      this.state.body = input.body
+      this.state.tag = input.tag
     }
   }
+
+  //Get input and setState title
   setTitle(event) {
-    let id = window.location.pathname.split('/')[2] ;
-    this.state.title = event.target.value
-
-    if(this.state.title !== ""){
-      this.emit("set-title", { title:  this.state.title });
-    }
+    this.state.title = event.target.value;
   }
+
+  //Get input and setState body
   setBody(event) {
-    let id = window.location.pathname.split('/')[2] ;
-    this.state.body = event.target.value
-
-    if(this.state.body !== ""){
-      this.emit("set-body", { body:  this.state.body });
-    }
+    this.state.body = event.target.value;
   }
+
+  //Get tag and setState Tag
   setTag(e) {
     this.handleShow(); 
-    this.state.tag = e.target.textContent
-
-    if(this.state.tag !== "") {
-      this.emit("set-tag",  {tag: e.target.textContent})
-    }
+    this.state.tag = e.target.textContent;
   }
 
+  //Toggles Open on state to (true or false)
   handleShow() {
     this.state.open = !this.state.open;
   }
-    
-    
+  
+  //Handle Submision of form when button is clicked and emit state data to respective pages
+  handleSubmit() {
+    //Making sure input fields are filled before submision
+    if(this.state.title === "" || this.state.body === "" || this.state.tag === "") {
+      alert("Please Fill All fields and select a Tag for your Note!");
+    }else {
+      this.emit('set-submit', {
+        title: this.state.title,
+        body: this.state.body, 
+        tag: this.state.tag
+      });
+    }
+  }
+
 }
 
 
 <div.form>
-    
-    <div.inputContainer>
-      <label>Tags</label>
-      <div class="tags" name="tags">
-        <span class="select-toggle btn" on-click("handleShow")>Select a Tag: ${state.tag}</span>
-        <if(state.open)>
-          <ul class="options">
-            <for|option| of=state.options>
-              <li class="option" on-click('setTag')>${option}</li>
-            </for>
-          </ul>
-        </if>
-      </div>
+  
+  <div.inputContainer>
+    <label>Tags</label>
+    <div class="tags" name="tags">
+      <span class="select-toggle btn" on-click("handleShow")>Select a Tag: ${state.tag}</span>
+
+      <if(state.open)>
+        <ul class="options">
+          <for|option| of=state.options>
+            <li class="option" on-click('setTag')>${option}</li>
+          </for>
+        </ul>
+      </if>
     </div>
-    <div.inputContainer>
-        <label>Title</label>
-        <input placeholder="enter title" on-change("setTitle") type="text" value=`${state.title}`/>
-    </div>
-  <textarea on-change("setBody") name="name" rows="8" cols="40" placeholder="enter body">${state.body}</textarea>
+  </div>
+
+  <div.inputContainer>
+      <label>Title</label>
+      <input placeholder="enter title" on-change("setTitle") type="text" value=`${state.title}`/>
+  </div>
+
+  <div.inputContainer>
+    <textarea on-change("setBody") name="name" rows="8" cols="40" placeholder="enter body">${state.body}</textarea>
+  </div>
+  
+  <div.inputContainer>
+    <button on-click("handleSubmit") class="btn">save note</button>
+  </div>
 </div>

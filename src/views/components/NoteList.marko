@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 class {
+    //Delete request for deleting note no the home page
     handleDelete(id,e) {
         axios.delete(`/api/notes/${id}`)
         .then(data => {
@@ -14,7 +15,7 @@ class {
 
 <div class="card">
     <h1>${input.title}</h1>
-    <p>${input.body.length > 200 ? input.body.substring(0, 200)+ " ..." : input.body}</p>
+    <p>${input.body.length > 200 ? input.body.substring(0, 150)+ " ..." : input.body}</p>
     <p>Tags: ${input.tag}</p>
     <div class="actions">
         <route-link href=`/notes/${input.id}` class="btn">Read more</route-link>

@@ -10,6 +10,8 @@ class {
       selected: ''
     }
   } 
+  
+  //Get request to get all Notes on page load
   onMount(){
     axios.get("/api/notes")
       .then(data => {
@@ -19,15 +21,19 @@ class {
       .catch(err => console.log(err.message))
   }
 
+  //Event Emmiter handler for note deleting
   handleDelete(e) {
     let newNotes = this.state.notes.filter(note=> note._id !== e.id)
 
     this.state.nNotes = newNotes;
   }
+
+  //Toggles Open on state to (true or false)
   handleShow() {
     this.state.open = !this.state.open;
   }
 
+  //Handles filtering by tag selection
   handleSelect(e) {
     this.state.selected = e.target.textContent;
     this.handleShow(); 
@@ -43,7 +49,7 @@ class {
 
 <div class="container">    
   <Header/>
-  <div.formContainer>
+  <div.form__inner>
     <div.notes__head>
       <h1>Notes</h1>
       <div class="tags" name="tags">

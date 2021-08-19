@@ -1,35 +1,9 @@
 import axios from 'axios'
 
 class {
-  onCreate() {
-    this.state = {
-      tag: "",
-      title: "",
-      body: "",
-    } 
-  }
-  setTag(e) {
-    this.state.tag = e.tag
-  }
 
-  setTitle(e) {
-    this.state.title = e.title;
-  }
-  setBody(e) {
-    this.state.body = e.body;
-  }
-
-  handleAdd() {
-    if(this.state.title === "" || this.state.body === "" || this.state.tag === "") {
-      alert("please fill all fields and select a Tag for your note");
-      return
-    }
-
-    let data = {
-      tag: this.state.tag,
-      title: this.state.title,
-      body: this.state.body
-    }
+  //Post request for Creating Note
+  handleSubmit(data) {
 
    axios.post('/api/notes',data)
     .then(data => {
@@ -40,14 +14,15 @@ class {
     .catch((error) => {
       console.error('Error:', error);
     });
+
   }
+
 }
 
 <div.container>
   <Header />
-  <div.formContainer>
+  <div.form__inner>
     <h1>Add Note</h1>
-    <Form on-set-title("setTitle") on-set-body("setBody") on-set-tag("setTag")/>
-    <button on-click("handleAdd") class="btn">Add note</button>
+    <Form on-set-submit("handleSubmit") />
   </div>
 </div>

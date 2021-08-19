@@ -1,19 +1,25 @@
 import axios from "axios";
+
 class {
    onCreate() {
-    this.state={
-        note : null
-    }
-  } 
+        this.state={
+            note : null
+        }
+    } 
+
+    //Get note on component mount
     onMount() {
-        let id = window.location.pathname.split('/')[2] ;
-         axios.get(`/api/notes/${id}`)
+        let id = this.input.params.id;
+
+        axios.get(`/api/notes/${id}`)
             .then(data => {
                 this.state.note = data.data.note
             })
             .catch(err => console.log(err.message))
     }    
-     handleDelete(id,e) {
+    
+    //Handles note delete
+    handleDelete(id,e) {
         axios.delete(`/api/notes/${id}`)
         .then(data => {
             if(data) {
@@ -24,13 +30,14 @@ class {
     } 
 }
 
-<div.container title="Note Title">
+
+<div.container>
     <Header />
-    <div.formContainer>
+    <div.form__inner>
         <div class="note-body">
             <div class="actions">
-            <button class="delete" on-click('handleDelete', state.note?._id)>X</button>
-            <route-link href=`/notes/${state.note?._id}/edit` class="edit">Edit</route-link>
+                <button class="delete" on-click('handleDelete', state.note?._id)>X</button>
+                <route-link href=`/notes/${state.note?._id}/edit` class="edit">Edit</route-link>
             </div>
             <h1>${state.note?.title}</h1>
             <p>${state.note?.body}</p>

@@ -1,22 +1,26 @@
-
 * {
   box-sizing: border-box;
 }
+
 body{
   background-color: #f1f1f1;
 }
+
 a {
   text-decoration: none;
   color: #333;
 }
+
 .edit {
   color: blue;
   margin-left: 15px;
 }
+
 .delete { 
   border: none;
   color: red;
 }
+
 nav {
   display: flex;
   justify-content: space-between;
@@ -25,11 +29,13 @@ nav {
   background-color: #333;
   color: #fff;
 }
+
 nav a {
   color: #fff;
   text-decoration: none;
   margin-left: 20px;
 }
+
 nav ul {
   display: flex;
   justify-content: space-between;
@@ -41,11 +47,13 @@ nav ul li {
   list-style: none;
   font-size: 18px;
 }
+
 .actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .card {
   margin-bottom: 15px;
   padding: 20px;
@@ -62,31 +70,36 @@ nav ul li {
   justify-content: space-between;
   flex-wrap: wrap;
 }
-.container {
-width: 800px;
-margin: 0 auto;
-}
-.formContainer {
-margin:0 auto;
-background: #fff;
-padding: 20px 20px 50px 20px;
-}
-form {
-width: 250px;
-margin: auto;
-}
-input {
-width: 100%;
-border: none;
-outline: none;
-border-bottom: 1px solid #ccc;
-padding: 10px 20px;
-margin: 10px 0;
 
+.container {
+  width: 800px;
+  margin: 0 auto;
 }
+
+.form__inner {
+  margin:0 auto;
+  padding: 20px 20px 50px 20px;
+  background: #fff;
+}
+
+form {
+  width: 250px;
+  margin: auto;
+}
+
+input {
+  width: 100%;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 20px;
+  margin: 10px 0;
+}
+
 .title {
   text-align: center;
 }
+
 .btn {
   text-align: center;
   padding: 12px 20px;
@@ -97,6 +110,7 @@ margin: 10px 0;
   cursor: pointer;
   margin-top: 20px;
 }
+
 textarea {
   width: 100%;
   border: none;
@@ -122,17 +136,20 @@ textarea {
   background: #333;
   text-align: left;
 }
+
 ul {
   padding: 0;
   margin: 0;
 }
+
 .tags {
-    width: 100%;
-    padding: 10px 0px;
-    margin: 10px 0;
-    position: relative;
-  }
-  .options {
+  width: 100%;
+  padding: 10px 0px;
+  margin: 10px 0;
+  position: relative;
+}
+
+.options {
   position: absolute;
   background-color: #333;
   color: #fff;
@@ -140,7 +157,8 @@ ul {
   padding: 10px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
+
 .option {
-    padding: 10px; 
-    list-style: none
+  padding: 10px; 
+  list-style: none
 }
