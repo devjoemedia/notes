@@ -48,6 +48,6 @@ class {
   <Header />
   <div.form__inner>
     <h1>Edit Note</h1>
-    <Form title=`${state.title}` body=`${state.body}` tag=`${state.tag}` on-set-submit("handleSubmit")/>
+    <Form ...state on-set-submit("handleSubmit")/>
   </div>
 </div>
