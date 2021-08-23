@@ -24,15 +24,13 @@
         </li>
       </ul>
     </div>
-    <div#app></div>
-    <if( process.env.NODE_ENV === 'production' )><script src=input.Assets.client.js[0] defer crossorigin></script></if>
-    <else>
+     <div#app></div>
+    
     <if( Array.isArray( input.Assets.client.js ) )>
       <for|src| of=input.Assets.client.js>
         <script src=src crossorigin=( process.env.NODE_ENV === 'production' ) defer></script>
       </for>
     </if>
-    </else>
     <else>
       <script src=input.Assets.client.js crossorigin=( process.env.NODE_ENV === 'production' ) defer></script>
     </else>
