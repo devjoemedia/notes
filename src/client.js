@@ -33,4 +33,4 @@ window.addEventListener('click', ()=> {
 });
 
 
-App.renderSync({ Routes }).prependTo( document.body);
+App.renderSync({ Routes }).prependTo( document.getElementById('app'));

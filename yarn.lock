@@ -1178,6 +1178,11 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
+"@marko-tags/context@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@marko-tags/context/-/context-2.2.2.tgz#c38a16ea17e2fe1b4d8df658763f10f3c8adc886"
+  integrity sha512-mWSFizS4nb74vz/maAjk9G/q0hqRseztojiL237ViVLQpOuXz8zqOiEBBj7V9KKap1W0CJHumVbuq8wJSNu5zg==
+
 "@marko/express@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@marko/express/-/express-1.0.0.tgz#e1329a9313656a8770d176b5b0239032d3d3d458"
