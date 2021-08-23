@@ -7,12 +7,29 @@
     <title>${input.title}</title>
   </head>
   <body>
-    <div#app></div>
+    <div#contextMenu>
+      <ul>
+        <li.contextItem>copy link</li>
+        <li.contextItem>past</li>
+        <li.contextItem>save as...</li>
+          <hr>
+        <li.contextItem>send</li>
+        <li.contextItem.share>
+          share
+          <ul.shareMenu>
+            <li.contextItem>facebook</li>
+            <li.contextItem>twitter</li>
+            <li.contextItem>instagram</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
     <if( process.env.NODE_ENV === 'production' )><script src=input.Assets.client.js[0] defer crossorigin></script></if>
     <else>
       <for|src| of=input.Assets.client.js>
         <script src=src defer></script>
       </for>
     </else>
+    
   </body>
 </html>

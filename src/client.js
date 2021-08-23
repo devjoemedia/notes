@@ -12,5 +12,25 @@ const Routes = [
     { name: 'note', path: '/notes/:id', component: Note },
     { name: '404', path: '/not-found', component: NotFound },
 ]
+
  
-App.renderSync({ Routes }).prependTo( document.getElementById("app") )
+
+// Get the custom context menu element
+const contextMenu = document.querySelector('#contextMenu');
+
+// Displays the custom context menu
+window.addEventListener('contextmenu', (event)=> {
+    event.preventDefault();
+    contextMenu.style.top = event.offsetY + "px";
+    contextMenu.style.left = event.offsetX + "px";
+    contextMenu.style.display = "block";
+
+});
+
+// Removes the context element when the document is clicked
+window.addEventListener('click', ()=> {
+    contextMenu.style.display = "none";
+});
+
+
+App.renderSync({ Routes }).prependTo( document.body);

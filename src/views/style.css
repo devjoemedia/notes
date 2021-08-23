@@ -162,3 +162,44 @@ ul {
   padding: 10px; 
   list-style: none
 }
+
+/* Custom Context */
+li {
+  list-style: none;
+}
+
+#contextMenu,.contextItem .shareMenu {
+  border: 1px solid #ccc;
+  width: 250px;
+  background-color: #fff;
+  font-size: 18px;
+}
+
+#contextMenu {
+  display: none;
+  z-index: 999;
+  position: fixed;
+  transform-origin: top left;
+
+}
+
+#contextMenu .contextItem {
+  padding: 15px 30px;
+  cursor: pointer;
+  position: relative;
+}
+
+#contextMenu .contextItem:hover {
+  background-color: #f1f1f1;
+}
+
+.contextItem .shareMenu {
+  position: absolute;
+  right: -65%;
+  width: 200px;
+  display: none;
+}
+
+.contextItem.share:hover .shareMenu {
+  display: block;
+}
