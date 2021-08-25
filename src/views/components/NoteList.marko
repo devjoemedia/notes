@@ -2,7 +2,7 @@ import axios from 'axios'
 
 class {
     //Delete request for deleting note no the home page
-    handleDelete(id,e) {
+    handleDelete(id) {
         axios.delete(`/api/notes/${id}`)
         .then(data => {
             if(data.data.message === "Success") {
@@ -11,17 +11,60 @@ class {
         })
         .catch(err => console.log(err.message))
     }
+
+    //Handles what happens when a contextmenu option is clicked
+    handleContextAction(data) {
+        if(data.name === "read") {
+            window.location = `/notes/${this.input._id}`
+        }
+
+        if(data.name === "edit") {
+            window.location = `/notes/${this.input._id}/edit`
+        }
+
+        if(data.name === "delete") {
+            //this.handleDelete(this.input._id)
+            console.log('Deleteting', this.input)
+        }
+
+        if(data.name === "facebook") {
+              window.open("https://facebook.com/sharer/sharer.php?u=" + `https://notely.com/notes/${this.input._id}`);
+        }
+
+        if(data.name === "twitter") {
+            window.open("https://twitter.com/intent/tweet?text=" +
+      `Start Creating your Note's using this awesome app check it out https://notely.com/notes/${this.input._id} `);
+        }
+
+    }
+
+    //Shows the custom context menu
+    setContextMenu(e) {
+        e.preventDefault();
+        
+        if(e.target.classList.contains('card') || e.target.parentElement.classList.contains('card')) 
+        {
+            let contextmenu = document.querySelector('#contextOptions');
+            contextmenu.style.display = "block";
+            contextmenu.style.left = e.offsetX + 'px';
+            contextmenu.style.top = e.offsetY + 'px';
+
+        }
+    }
 }
 
-<div class="card">
+<div class="card" on-contextmenu("setContextMenu")>
+
+    <ContextMenu on-set-action("handleContextAction") />
+
     <h1>${input.title}</h1>
     <p>${input.body.length > 200 ? input.body.substring(0, 150)+ " ..." : input.body}</p>
     <p>Tags: ${input.tag}</p>
     <div class="actions">
-        <route-link href=`/notes/${input.id}` class="btn">Read more</route-link>
+        <route-link href=`/notes/${input._id}` class="btn">Read more</route-link>
         <div>
-            <button class="delete" on-click("handleDelete",input.id)>X</button>
-            <route-link href=`/notes/${input.id}/edit` class="edit">Edit</route-link>
+            <button class="delete" on-click("handleDelete",input._id)>X</button>
+            <route-link href=`/notes/${input._id}/edit` class="edit">Edit</route-link>
         </div>   
     </div>
 </div>

@@ -47,6 +47,7 @@ class {
   }
 }
 
+
 <div class="container">    
   <Header/>
   <div.form__inner>
@@ -66,7 +67,7 @@ class {
     <div.notes>
       <if(state.nNotes.length > 0)>
       <for|note| of=state.nNotes>
-        <NoteList title=note.title body=note.body tag=note.tag id=note._id on-delete-note("handleDelete")/>
+        <NoteList ...note on-delete-note("handleDelete")/>
       </for>
       </if>
       <else>

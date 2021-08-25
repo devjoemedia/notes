@@ -1,17 +1,28 @@
-<div#contextMenu>
-  <ul>
-    <li.contextItem>copy link</li>
-    <li.contextItem>past</li>
-    <li.contextItem>save as...</li>
-      <hr>
-    <li.contextItem>send</li>
-    <li.contextItem.share>
-      share
-      <ul.shareMenu>
-        <li.contextItem>facebook</li>
-        <li.contextItem>twitter</li>
-        <li.contextItem>instagram</li>
-      </ul>
-    </li>
+class {
+  onCreate() {
+    this.state = {
+      contextOptions: [
+        {name:"read", text: "Read note"},
+        {name:"edit", text: "Edit note"},
+        {name:"delete", text: "Delete note"},
+        {name:"facebook", text: "share on facebook"},
+        {name:"twitter", text: "share on twitter"},
+      ],
+      note: null
+    }
+  }
+
+
+  handleClick(data) {
+    this.emit('set-action', {...data})
+  }
+}
+
+
+<div#contextMenu >
+  <ul#contextOptions>
+    <for|contextOption| of=state.contextOptions>
+      <li.contextOption on-click('handleClick', contextOption)>${contextOption.text}</li>
+    </for>
   </ul>
 </div>
