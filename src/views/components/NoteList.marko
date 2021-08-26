@@ -23,8 +23,7 @@ class {
         }
 
         if(data.name === "delete") {
-            //this.handleDelete(this.input._id)
-            console.log('Deleteting', this.input)
+            this.handleDelete(this.input._id)
         }
 
         if(data.name === "facebook") {
@@ -41,39 +40,33 @@ class {
     //Shows the custom context menu
     setContextMenu(e) {
         e.preventDefault();
+
+        //set display of all contextMenu to none prevent context menu showing up on all note cards
         document.querySelectorAll('.contextOptions').forEach(el => el.style.display = "none");
         
 
-        if(e.target.children[0]  || e.target.parentElement.children[0]  ) {
+        //Get the context menu when the target elements in note card parents first child has the class of contextMenu
+        if(e.target.parentElement.children[0].classList.contains('contextMenu')) {
+            let contextOptions = e.target.parentElement.children[0].children[0]
 
+            contextOptions.style.display = 'block'
+            contextOptions.style.left = e.offsetX + 'px';
+            contextOptions.style.top = e.offsetY + 'px';
+        }
 
-            if(e.target.parentElement.children[0].classList.contains('contextMenu')) {
-                let contextOptions = e.target.parentElement.children[0].children[0]
+        //Get the context menu when the target elements in note card first child has the class of contextMenu
+        else if(e.target.children[0].classList.contains('contextMenu')) {
+            let contextOptions = e.target.children[0].children[0]
 
-                contextOptions.style.display = 'block'
-                contextOptions.style.left = e.offsetX + 'px';
-                contextOptions.style.top = e.offsetY + 'px';
-            }
-
-
-            if(e.target.children[0].classList.contains('contextMenu')) {
-                let contextOptions = e.target.children[0].children[0]
-
-                contextOptions.style.display = 'block'
-                contextOptions.style.left = e.offsetX + 'px';
-                contextOptions.style.top = e.offsetY + 'px';
-            }
+            contextOptions.style.display = 'block'
+            contextOptions.style.left = e.offsetX + 'px';
+            contextOptions.style.top = e.offsetY + 'px';
         }
     }
 
-    handleClick(e){
-        if(e.target.classList.contains('contextOption')) {
-            console.log(this.input)
-        }
-    }
 }
 
-<div class="card" on-contextmenu("setContextMenu") on-click('handleClick')>
+<div class="card" on-contextmenu("setContextMenu") >
     <ContextMenu ...input on-set-action("handleContextAction") />
 
     <h1>${input.title}</h1>
