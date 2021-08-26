@@ -169,14 +169,13 @@ li {
 }
 
 
-#contextMenu {
+.contextMenu {
   position: relative;
-  /* width: 43%; */
   max-height: 330px; 
   height: auto;
 }
 
-#contextOptions {
+.contextOptions {
   display: none;
   position: absolute;
   z-index: 999;

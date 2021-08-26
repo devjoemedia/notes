@@ -41,21 +41,40 @@ class {
     //Shows the custom context menu
     setContextMenu(e) {
         e.preventDefault();
+        document.querySelectorAll('.contextOptions').forEach(el => el.style.display = "none");
         
-        if(e.target.classList.contains('card') || e.target.parentElement.classList.contains('card')) 
-        {
-            let contextmenu = document.querySelector('#contextOptions');
-            contextmenu.style.display = "block";
-            contextmenu.style.left = e.offsetX + 'px';
-            contextmenu.style.top = e.offsetY + 'px';
 
+        if(e.target.children[0]  || e.target.parentElement.children[0]  ) {
+
+
+            if(e.target.parentElement.children[0].classList.contains('contextMenu')) {
+                let contextOptions = e.target.parentElement.children[0].children[0]
+
+                contextOptions.style.display = 'block'
+                contextOptions.style.left = e.offsetX + 'px';
+                contextOptions.style.top = e.offsetY + 'px';
+            }
+
+
+            if(e.target.children[0].classList.contains('contextMenu')) {
+                let contextOptions = e.target.children[0].children[0]
+
+                contextOptions.style.display = 'block'
+                contextOptions.style.left = e.offsetX + 'px';
+                contextOptions.style.top = e.offsetY + 'px';
+            }
+        }
+    }
+
+    handleClick(e){
+        if(e.target.classList.contains('contextOption')) {
+            console.log(this.input)
         }
     }
 }
 
-<div class="card" on-contextmenu("setContextMenu")>
-
-    <ContextMenu on-set-action("handleContextAction") />
+<div class="card" on-contextmenu("setContextMenu") on-click('handleClick')>
+    <ContextMenu ...input on-set-action("handleContextAction") />
 
     <h1>${input.title}</h1>
     <p>${input.body.length > 200 ? input.body.substring(0, 150)+ " ..." : input.body}</p>

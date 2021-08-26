@@ -14,13 +14,14 @@ class {
 
 
   handleClick(data) {
-    this.emit('set-action', {...data})
+    console.log(data, this.input)
+    this.emit('set-action', {...data, note: this.input})
   }
 }
 
 
-<div#contextMenu >
-  <ul#contextOptions>
+<div.contextMenu >
+  <ul.contextOptions>
     <for|contextOption| of=state.contextOptions>
       <li.contextOption on-click('handleClick', contextOption)>${contextOption.text}</li>
     </for>

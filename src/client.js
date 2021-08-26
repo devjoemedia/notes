@@ -14,16 +14,15 @@ const Routes = [
 ]
 
 // Get the custom context menu element
-const contextMenuContainer = document.querySelector('#contextMenu');
 
-// window.addEventListener('contextmenu', (e)=> {
-//     e.preventDefault()
-// })
+window.addEventListener('contextmenu', (e)=> {
+    e.preventDefault()
+})
+
 // Removes the context element when the document is clicked
 window.addEventListener('click', (event)=> {
-   
-    let contextMenu = document.querySelector('#contextOptions');
-    contextMenu.style.display = "none";
+    let contextmenu = document.querySelectorAll('.contextOptions').forEach(el => el.style.display = "none");
+    // contextmenu.style.display = "none";
 });
 
 
