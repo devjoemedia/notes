@@ -14,8 +14,7 @@ class {
 
 
   handleClick(data) {
-    console.log(data, this.input)
-    this.emit('set-action', {...data, note: this.input})
+    this.emit('set-action', {...data})
   }
 }
 
