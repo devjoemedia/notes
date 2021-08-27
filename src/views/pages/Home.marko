@@ -7,7 +7,12 @@ class {
       nNotes: [],
       open: false,
       options: ["all","business","sports","Entertainment","politics"],
-      selected: ''
+      selected: '',
+      contextOptions: [
+        {name:"create", text: "Create new note"},
+        {name:"facebook", text: "share on facebook"},
+        {name:"twitter", text: "share on twitter"},
+      ],
     }
   } 
   
@@ -50,9 +55,9 @@ class {
 
 <div class="container">    
   <Header/>
-  <div.form__inner>
-    <div.notes__head>
-      <h1>Notes</h1>
+  <ContextMenu ...state.contextOptions>
+    
+    <div.appInner>
       <div class="tags" name="tags">
         <span class="select-toggle btn" on-click("handleShow")>Filter by tag: ${state.selected}</span>
         <if(state.open)>
@@ -63,16 +68,16 @@ class {
           </ul>
         </if>
       </div>
+      <div.notes>
+        <if(state.nNotes.length > 0)>
+        <for|note| of=state.nNotes>
+          <NoteList ...note on-delete-note("handleDelete")/>
+        </for>
+        </if>
+        <else>
+          <h1>No Notes Found</h1>
+        </else>
+      </div> 
     </div>
-    <div.notes>
-      <if(state.nNotes.length > 0)>
-      <for|note| of=state.nNotes>
-        <NoteList ...note on-delete-note("handleDelete")/>
-      </for>
-      </if>
-      <else>
-        <h1>No Notes Found</h1>
-      </else>
-    </div> 
-  </div>
+  </ContextMenu>
 </div>

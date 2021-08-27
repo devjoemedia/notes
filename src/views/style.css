@@ -60,11 +60,13 @@ nav ul li {
   box-shadow: 0 0px 5px 0px rgba(0,0,0,0.3);
   background-color: #fff;
   border-radius: 10px;
-  width: 43%;
-  max-height: 330px; 
+  /* width: 43%; */
+  height: 300px; 
 }
 
 .notes {
+
+  padding-top: 2rem;
   min-height: 80vh;
   display: flex;
   justify-content: space-between;
@@ -76,7 +78,7 @@ nav ul li {
   margin: 0 auto;
 }
 
-.form__inner {
+.appInner {
   margin:0 auto;
   padding: 20px 20px 50px 20px;
   background: #fff;
@@ -145,7 +147,6 @@ ul {
 .tags {
   width: 100%;
   padding: 10px 0px;
-  margin: 10px 0;
   position: relative;
 }
 
@@ -155,6 +156,7 @@ ul {
   color: #fff;
   width: 100%;
   padding: 10px;
+  z-index: 9999;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
@@ -171,17 +173,18 @@ li {
 
 .contextMenu {
   position: relative;
-  max-height: 330px; 
-  height: auto;
+  height: 300px;
+  min-width: 43%;
 }
 
 .contextOptions {
   display: none;
-  position: absolute;
   z-index: 999;
+  position: absolute;
   width: 250px;
   background: #fff;
   border: 1px solid #ccc;
+
 }
 .contextOption {
   padding: 15px 20px;

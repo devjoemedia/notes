@@ -2,80 +2,28 @@ import axios from 'axios'
 
 class {
     //Delete request for deleting note no the home page
-    handleDelete(id) {
-        axios.delete(`/api/notes/${id}`)
+    handleDelete() {
+        axios.delete(`/api/notes/${this.input._id}`)
         .then(data => {
             if(data.data.message === "Success") {
-                this.emit("delete-note", { id });
+                this.emit("delete-note", {id: this.input._id });
             }
         })
         .catch(err => console.log(err.message))
     }
-
-    //Handles what happens when a contextmenu option is clicked
-    handleContextAction(data) {
-        if(data.name === "read") {
-            window.location = `/notes/${this.input._id}`
-        }
-
-        if(data.name === "edit") {
-            window.location = `/notes/${this.input._id}/edit`
-        }
-
-        if(data.name === "delete") {
-            this.handleDelete(this.input._id)
-        }
-
-        if(data.name === "facebook") {
-              window.open("https://facebook.com/sharer/sharer.php?u=" + `https://notely.com/notes/${this.input._id}`);
-        }
-
-        if(data.name === "twitter") {
-            window.open("https://twitter.com/intent/tweet?text=" +
-      `Start Creating your Note's using this awesome app check it out https://notely.com/notes/${this.input._id} `);
-        }
-
-    }
-
-    //Shows the custom context menu
-    setContextMenu(e) {
-        e.preventDefault();
-
-        //set display of all contextMenu to none prevent context menu showing up on all note cards
-        document.querySelectorAll('.contextOptions').forEach(el => el.style.display = "none");
-        
-
-        //Get the context menu when the target elements in note card parents first child has the class of contextMenu
-        if(e.target.parentElement.children[0].classList.contains('contextMenu')) {
-            let contextOptions = e.target.parentElement.children[0].children[0]
-
-            contextOptions.style.display = 'block'
-            contextOptions.style.left = e.offsetX + 'px';
-            contextOptions.style.top = e.offsetY + 'px';
-        } 
-        else if(e.target.children[0].classList.contains('contextMenu')) {
-            //Get the context menu when the target elements in note card first child has the class of contextMenu
-            let contextOptions = e.target.children[0].children[0]
-
-            contextOptions.style.display = 'block'
-            contextOptions.style.left = e.offsetX + 'px';
-            contextOptions.style.top = e.offsetY + 'px';
-        }
-    }
-
 }
 
-<div class="card" on-contextmenu("setContextMenu") >
-    <ContextMenu ...input on-set-action("handleContextAction") />
-
-    <h1>${input.title}</h1>
-    <p>${input.body.length > 200 ? input.body.substring(0, 150)+ " ..." : input.body}</p>
-    <p>Tags: ${input.tag}</p>
-    <div class="actions">
-        <route-link href=`/notes/${input._id}` class="btn">Read more</route-link>
-        <div>
-            <button class="delete" on-click("handleDelete",input._id)>X</button>
-            <route-link href=`/notes/${input._id}/edit` class="edit">Edit</route-link>
-        </div>   
+<ContextMenu ...input on-set-delete("handleDelete") on-set-action("handleContextAction") >
+    <div class="card" >
+        <h1>${input.title}</h1>
+        <p>${input.body.length > 200 ? input.body.substring(0, 130)+ " ..." : input.body}</p>
+        <p>Tags: ${input.tag}</p>
+        <div class="actions">
+            <route-link href=`/notes/${input._id}` class="btn">Read more</route-link>
+            <div>
+                <button class="delete" on-click("handleDelete")>X</button>
+                <route-link href=`/notes/${input._id}/edit` class="edit">Edit</route-link>
+            </div>   
+        </div>
     </div>
-</div>
+</ContextMenu>

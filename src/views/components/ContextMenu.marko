@@ -1,7 +1,7 @@
 class {
   onCreate() {
     this.state = {
-      contextOptions: [
+      contextOptions:  [
         {name:"read", text: "Read note"},
         {name:"edit", text: "Edit note"},
         {name:"delete", text: "Delete note"},
@@ -13,16 +13,77 @@ class {
   }
 
 
-  handleClick(data) {
-    this.emit('set-action', {...data})
-  }
+   //Shows the custom context menu
+    setContextMenu(e) {
+        e.preventDefault();
+      console.log(e.target)
+      if(e.target.classList.contains('notes') || e.target.classList.contains('appInner')) {
+        console.log(e.target.classList)
+
+        this.state.contextOptions = [
+        {name:"create", text: "Create new note"},
+        {name:"facebook", text: "share on facebook"},
+        {name:"twitter", text: "share on twitter"},
+      ]
+      }
+        //set display of all contextMenu to none prevent context menu showing up on all note cards
+        document.querySelectorAll('.contextOptions').forEach(el => el.style.display = "none");
+        
+
+        //Get the context menu when the target elements in note card parents first child has the class of contextMenu
+        if(e.target.parentElement.parentElement.children[0].classList.contains('contextMenu')) {
+            let contextOptions = e.target.parentElement.parentElement.children[0].children[0]
+
+            contextOptions.style.display = 'block'
+            contextOptions.style.left = e.offsetX + 'px';
+            contextOptions.style.top = e.offsetY + 'px';
+          } 
+          else if(e.target.parentElement.parentElement.classList.contains('contextMenu')) {
+            //Get the context menu when the target elements in note card first child has the class of contextMenu
+            let contextOptions = e.target.parentElement.parentElement.children[0]
+
+            contextOptions.style.display = 'block'
+            contextOptions.style.left = e.offsetX + 'px';
+            contextOptions.style.top = e.offsetY + 'px';
+        }
+    }
+    //Handles what happens when a contextmenu option is clicked
+    handleContextAction(data) {
+        if(data.name === "read") {
+          //history.replaceState({page: 1}, '',`/notes/${this.input._id}`)
+          window.location.assign(`/notes/${this.input._id}`)
+        }
+
+        if(data.name === "edit") {
+            window.location = `/notes/${this.input._id}/edit`
+        }
+
+        if(data.name === "delete") {
+          this.emit('set-delete', {})
+        }
+
+        if(data.name === "create") {
+          window.location = `/create`
+        }
+
+        if(data.name === "facebook") {
+              window.open("https://facebook.com/sharer/sharer.php?u=" + `https://notely.com/notes/${this.input._id}`);
+        }
+
+        if(data.name === "twitter") {
+            window.open("https://twitter.com/intent/tweet?text=" +
+      `Start Creating your Note's using this awesome app check it out https://notely.com/notes/${this.input._id} `);
+        }
+
+    }
 }
 
 
-<div.contextMenu >
+<div.contextMenu on-contextmenu("setContextMenu") >
   <ul.contextOptions>
     <for|contextOption| of=state.contextOptions>
-      <li.contextOption on-click('handleClick', contextOption)>${contextOption.text}</li>
+      <li.contextOption on-click('handleContextAction', contextOption)>${contextOption.text}</li>
     </for>
   </ul>
+  <${input.renderBody} />
 </div>
