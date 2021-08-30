@@ -18,9 +18,7 @@ class {
    //Shows the custom context menu
     setContextMenu(e) {
         e.preventDefault();
-      console.log(e.target)
       if(e.target.classList.contains('notes') || e.target.classList.contains('appInner')) {
-        console.log(e.target.classList)
 
         this.state.contextOptions = [
         {name:"create", text: "Create new note"},
