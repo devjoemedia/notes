@@ -9,7 +9,7 @@ const Assets = require( process.env.RAZZLE_ASSETS_MANIFEST )
 
 const app = express();
 
-
+ 
 // Connecting to server
 mongoose.connect("mongodb+srv://joseph:test1234@cluster0.qqbea.mongodb.net/notebook?retryWrites=true&w=majority",{ useNewUrlParser: true,useUnifiedTopology: true ,useFindAndModify: true }).then(res=> console.log("connection success")).catch(err => console.log(err.message))
   
@@ -18,7 +18,7 @@ app
 .use( markoMiddleware() ) // Enable res.marko
 .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
 app.use(express.json())
-
+ 
 
 
 // Get All Notes

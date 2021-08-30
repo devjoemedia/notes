@@ -1,4 +1,5 @@
-import axios from 'axios'
+import axios from 'axios';
+import { navigate } from 'marko-router5';
 
 class {
 
@@ -8,7 +9,7 @@ class {
    axios.post('/api/notes',data)
     .then(data => {
       if(data.data.message === "Success") {
-        alert("Note Created Please visit / to view note")
+        navigate(`/`);
       }
     })
     .catch((error) => {
