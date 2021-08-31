@@ -1,6 +1,19 @@
 import axios from 'axios'
+import { navigate } from 'marko-router5'
 
 class {
+    onCreate() {
+    this.state = {
+      contextOptions:  [
+        {actionType:"read", text: "Read note"},
+        {actionType:"edit", text: "Edit note"},
+        {actionType:"delete", text: "Delete note"},
+        {actionType:"facebook", text: "share on facebook"},
+        {actionType:"twitter", text: "share on twitter"},
+      ],
+      openState: false
+    }
+  }
     //Delete request for deleting note no the home page
     handleDelete() {
         axios.delete(`/api/notes/${this.input._id}`)
@@ -11,9 +24,38 @@ class {
         })
         .catch(err => console.log(err.message))
     }
+
+    //Handles what happens when a contextmenu option is clicked
+    handleContextAction(actionType) {
+
+        console.log(actionType)
+        if(actionType === "read") {
+          navigate(`/notes/${this.input._id}`)
+        }
+        
+        if(actionType === "edit") {
+          navigate(`/notes/${this.input._id}/edit`)
+        }
+
+        if(actionType === "delete") {
+          this.emit('set-delete', {})
+        }
+
+        if(actionType === "facebook") {
+          window.open("https://facebook.com/sharer/sharer.php?u=" + `https://notely.com/notes/${this.input._id}`);
+        }
+
+        if(actionType === "twitter") {
+          window.open("https://twitter.com/intent/tweet?text=" +
+      `Start Creating your Note's using this awesome app check it out https://notely.com/notes/${this.input._id} `);
+        }
+
+    }
+
+    
 }
 
-<ContextMenu ...input on-set-delete("handleDelete") on-set-action("handleContextAction") >
+<ContextMenu ...input contextOptions=state.contextOptions  on-set-delete("handleDelete") on-set-action("handleContextAction")>
     <div class="card" >
         <h1>${input.title}</h1>
         <p>${input.body.length > 200 ? input.body.substring(0, 130)+ " ..." : input.body}</p>

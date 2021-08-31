@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { navigate } from 'marko-router5'
 
 class {
   onCreate(input) {
@@ -9,9 +10,9 @@ class {
       options: ["all","business","sports","Entertainment","politics"],
       selected: '',
       contextOptions: [
-        {name:"create", text: "Create new note"},
-        {name:"facebook", text: "share on facebook"},
-        {name:"twitter", text: "share on twitter"},
+        {actionType:"create", text: "Create new note"},
+        {actionType:"facebook", text: "share on facebook"},
+        {actionType:"twitter", text: "share on twitter"},
       ],
     }
   } 
@@ -50,12 +51,30 @@ class {
       this.state.nNotes = this.state.notes;
     }
   }
+
+   //Handles what happens when a contextmenu option is clicked
+    handleContextAction(actionType) {
+
+        if(actionType === "create") {
+          navigate(`/create`)
+        }
+
+        if(actionType === "facebook") {
+          window.open("https://facebook.com/sharer/sharer.php?u=" + `https://notely.com/notes/${this.input._id}`);
+        }
+
+        if(actionType === "twitter") {
+          window.open("https://twitter.com/intent/tweet?text=" +
+      `Start Creating your Note's using this awesome app check it out https://notely.com/notes/${this.input._id} `);
+        }
+
+    }
 }
 
 
 <div class="container">    
   <Header/>
-  <ContextMenu ...state.contextOptions>
+  <ContextMenu contextOptions=state.contextOptions on-set-action("handleContextAction")>
     
     <div.appInner>
       <div class="tags" name="tags">

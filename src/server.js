@@ -71,7 +71,7 @@ app.patch('/api/notes/:id', async(req, res) => {
     })
   } catch (err) {
     console.log(err.message);
-  }
+  } 
 }); 
 
 // Delete Note
@@ -101,7 +101,6 @@ app.get('/*', async(req, res) => {
     console.log(err.message);
   }
 }); 
-
 
 
 export default app;
