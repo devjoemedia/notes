@@ -1,6 +1,12 @@
 import axios from 'axios';
 import { navigate } from 'marko-router5'
 
+$ const contextOptions = [
+  { actionType:"create", text: "Create new note" },
+  { actionType:"facebook", text: "share on facebook" },
+  { actionType:"twitter", text: "share on twitter" }
+]
+
 class {
   onCreate(input) {
     this.state = {
@@ -8,12 +14,7 @@ class {
       nNotes: [],
       open: false,
       options: ["all","business","sports","Entertainment","politics"],
-      selected: '',
-      contextOptions: [
-        {actionType:"create", text: "Create new note"},
-        {actionType:"facebook", text: "share on facebook"},
-        {actionType:"twitter", text: "share on twitter"},
-      ],
+      selected: ''
     }
   } 
   
@@ -74,7 +75,7 @@ class {
 
 <div class="container">    
   <Header/>
-  <ContextMenu contextOptions=state.contextOptions on-set-action("handleContextAction")>
+  <ContextMenu contextOptions=contextOptions on-set-action("handleContextAction")>
     
     <div.appInner>
       <div class="tags" name="tags">
@@ -90,7 +91,7 @@ class {
       <div.notes>
         <if(state.nNotes.length > 0)>
         <for|note| of=state.nNotes>
-          <NoteList ...note on-delete-note("handleDelete")/>
+          <NoteCard ...note on-delete-note("handleDelete")/>
         </for>
         </if>
         <else>
